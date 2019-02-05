@@ -1,6 +1,7 @@
 import { Component, OnInit, Input, Output } from '@angular/core';
 import { Employee } from '../model/employee.model';
 import { EventEmitter } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-display-employee',
@@ -13,10 +14,12 @@ export class DisplayEmployeeComponent implements OnInit {
   @Output() notify: EventEmitter<Employee> = new EventEmitter<Employee>();
   //type is EventEmitter because a child component uses an event to pass data to a parent component
   private _employee: Employee;
+  private selectedEmployeeId: number;
 
-  constructor() { }
+  constructor(private _route: ActivatedRoute) { }
 
   ngOnInit() {
+    this.selectedEmployeeId = +this._route.snapshot.paramMap.get('id');
   }
 
   handleClick(){
